@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="honeymzx00"
+  id="myeclipse.1512398914847"
+  context-root="/honeymzx"
+  j2ee-spec="5.0"
+  archive="honeymzx00.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
