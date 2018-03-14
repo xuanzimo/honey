@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">honeymzx</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="t_customer" view="colnames">
+<left>234</left>
+<top>326</top>
+<width>126</width>
+<height>169</height>
+<sql_create_table>CREATE TABLE `t_customer` (
+  `customerid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(40) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  PRIMARY KEY (`customerid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="t_honey" view="colnames">
+<left>781</left>
+<top>317</top>
+<width>129</width>
+<height>149</height>
+<sql_create_table>CREATE TABLE `t_honey` (
+  `honeyid` int(11) NOT NULL AUTO_INCREMENT,
+  `honeyname` varchar(40) DEFAULT NULL,
+  `unitprice` double DEFAULT NULL COMMENT '单价',
+  PRIMARY KEY (`honeyid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="t_order" view="colnames">
+<left>482</left>
+<top>296</top>
+<width>121</width>
+<height>189</height>
+<sql_create_table>CREATE TABLE `t_order` (
+  `orderid` int(30) NOT NULL AUTO_INCREMENT,
+  `honey` int(11) NOT NULL,
+  `honeynum` int(2) DEFAULT NULL,
+  `customer` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  PRIMARY KEY (`orderid`),
+  KEY `FKA0C0C3C37D7B11F1` (`honey`),
+  KEY `FKA0C0C3C3D37D4E61` (`customer`),
+  CONSTRAINT `t_order_ibfk_1` FOREIGN KEY (`honey`) REFERENCES `t_honey` (`honeyid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_order_ibfk_2` FOREIGN KEY (`customer`) REFERENCES `t_customer` (`customerid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
