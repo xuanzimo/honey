@@ -17,16 +17,16 @@ public class LoginInterceptors extends AbstractInterceptor{
 	 
 	   private static final long serialVersionUID = 1L;
 
-	   private String sessionName; //用来传递当前用户的信息
+	   private String sessionName; //鐢ㄦ潵浼犻�褰撳墠鐢ㄦ埛鐨勪俊鎭�
 
-	   private String excludeName; //例外的action，也就是凡是例外的action就不需要拦截
+	   private String excludeName; //渚嬪鐨刟ction锛屼篃灏辨槸鍑℃槸渚嬪鐨刟ction灏变笉闇�鎷︽埅
 
 	   private List <String> list;
 
 	   /*
-	    * 因为在配置文件的参数excludeName中，例外的action可能是若干个，中间用逗号间隔，所以在取值时要把excludeName分解成单独的
-	   一个个action的名字，放在一个list中，strlsit方法用来分解这些action的名字
-	                 假如逗号前后有空格，则使用trim()方法去除这些空格
+	    * 鍥犱负鍦ㄩ厤缃枃浠剁殑鍙傛暟excludeName涓紝渚嬪鐨刟ction鍙兘鏄嫢骞蹭釜锛屼腑闂寸敤閫楀彿闂撮殧锛屾墍浠ュ湪鍙栧�鏃惰鎶奺xcludeName鍒嗚В鎴愬崟鐙殑
+	   涓�釜涓猘ction鐨勫悕瀛楋紝鏀惧湪涓�釜list涓紝strlsit鏂规硶鐢ㄦ潵鍒嗚В杩欎簺action鐨勫悕瀛�
+	                 鍋囧閫楀彿鍓嶅悗鏈夌┖鏍硷紝鍒欎娇鐢╰rim()鏂规硶鍘婚櫎杩欎簺绌烘牸
 	   */
 	   public List<String>  strlsit(String str){
 
@@ -57,40 +57,40 @@ public class LoginInterceptors extends AbstractInterceptor{
 	   public String intercept(ActionInvocation invocation) throws Exception {
 
 	     
-		 System.out.println("--------进入拦截器--------");  //此语句可以用来验证是否能进入intercept方法
-		 String actionName = invocation.getProxy().getActionName();   //得到跳转的action的名字
-		 Map <String,Object>  session = invocation.getInvocationContext().getSession();  //得到当前session
+		 System.out.println("--------杩涘叆鎷︽埅鍣�-------");  //姝よ鍙ュ彲浠ョ敤鏉ラ獙璇佹槸鍚﹁兘杩涘叆intercept鏂规硶
+		 String actionName = invocation.getProxy().getActionName();   //寰楀埌璺宠浆鐨刟ction鐨勫悕瀛�
+		 Map <String,Object>  session = invocation.getInvocationContext().getSession();  //寰楀埌褰撳墠session
 
-	     if(list.contains(actionName)){   //如果请求合法，也就是进登录或注册的action，则不拦截
+	     if(list.contains(actionName)){   //濡傛灉璇锋眰鍚堟硶锛屼篃灏辨槸杩涚櫥褰曟垨娉ㄥ唽鐨刟ction锛屽垯涓嶆嫤鎴�
 	        
-	    	System.out.println(actionName + "没有被拦截");
-	        return invocation.invoke();     //就是通知struts2继续处理以后的事儿，也就是不加拦截器时该执行的那个action
+	    	System.out.println(actionName + "娌℃湁琚嫤鎴�");
+	        return invocation.invoke();     //灏辨槸閫氱煡struts2缁х画澶勭悊浠ュ悗鐨勪簨鍎匡紝涔熷氨鏄笉鍔犳嫤鎴櫒鏃惰鎵ц鐨勯偅涓猘ction
 
-	     }else {   //如果请求不合法，也就是需要被拦截
+	     }else {   //濡傛灉璇锋眰涓嶅悎娉曪紝涔熷氨鏄渶瑕佽鎷︽埅
 
-	        //查看session
-	    	System.out.println(actionName + "被拦截了");
+	        //鏌ョ湅session
+	    	System.out.println(actionName + "琚嫤鎴簡");
 
 	        
 	        
-	        //得到当前用户（当前用户在login方法中已经被放入session中，见CustomerAction中的login方法）
+	        //寰楀埌褰撳墠鐢ㄦ埛锛堝綋鍓嶇敤鎴峰湪login鏂规硶涓凡缁忚鏀惧叆session涓紝瑙丆ustomerAction涓殑login鏂规硶锛�
 	        Customer customer = (Customer) session.get(sessionName);   
 	        
-	           if(customer==null){   //如果customer不存在，就说明登录不成功，还转回login
-	        	     // 获取HttpServletRequest对象  
+	           if(customer==null){   //濡傛灉customer涓嶅瓨鍦紝灏辫鏄庣櫥褰曚笉鎴愬姛锛岃繕杞洖login
+	        	     // 鑾峰彇HttpServletRequest瀵硅薄  
 	                 HttpServletRequest req = ServletActionContext.getRequest();  
 
-	                 // 获取此请求的地址 ，也就是获取拦截前要跳转的地址，进行跳转
+	                 // 鑾峰彇姝よ姹傜殑鍦板潃 锛屼篃灏辨槸鑾峰彇鎷︽埅鍓嶈璺宠浆鐨勫湴鍧�紝杩涜璺宠浆
 	                 String path = req.getRequestURI().replaceAll("/honeyProject", "");
 	                 System.out.println("path:" + path);
 	        
-	                 // 存入session，这个参数在struts.xml中会作为参数出现  
+	                 // 瀛樺叆session锛岃繖涓弬鏁板湪struts.xml涓細浣滀负鍙傛暟鍑虹幇  
 	                 session.put("prePage", path);  
 	        	     return "login";
 	           }
-	           else {                //如果customer存在，则登录成功
+	           else {                //濡傛灉customer瀛樺湪锛屽垯鐧诲綍鎴愬姛
 	        	
-	                 return invocation.invoke();    //通知struts2跳转到action中
+	                 return invocation.invoke();    //閫氱煡struts2璺宠浆鍒癮ction涓�
 
 	          }
 

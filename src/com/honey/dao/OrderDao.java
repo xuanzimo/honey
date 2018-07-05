@@ -20,26 +20,26 @@ import com.honey.model.Order;
 public class OrderDao {
 	@Resource SessionFactory factory;
 	
-	 /*添加Order信息*/
+	 /*娣诲姞Order淇℃伅*/
     public void AddOrder(Order order) throws Exception {
     	Session s = factory.getCurrentSession();
     	s.save(order);
     }
     
-    /*删除Order信息*/
+    /*鍒犻櫎Order淇℃伅*/
     public void DeleteOrder (Integer orderId) throws Exception {
         Session s = factory.getCurrentSession(); 
         Object order = s.load(Order.class, orderId);
         s.delete(order);
     }
     
-    /*更新Order信息*/
+    /*鏇存柊Order淇℃伅*/
     public void UpdateOrder(Order order) throws Exception {
         Session s = factory.getCurrentSession();
         s.update(order);
     }
     
-    /*查询所有Order信息*/
+    /*鏌ヨ鎵�湁Order淇℃伅*/
     public ArrayList<Order> QueryAllOrder() {
         Session s = factory.getCurrentSession();
         String hql = "From Order";
@@ -48,14 +48,14 @@ public class OrderDao {
         return (ArrayList<Order>) orderList;
     }
 
-    /*根据主键获取对象*/
+    /*鏍规嵁涓婚敭鑾峰彇瀵硅薄*/
     public Order GetOrderById(Integer orderid) {
         Session s = factory.getCurrentSession();
         Order order = (Order)s.get(Order.class, orderid);
         return order;
     }
     
-    /*根据查询条件查询，一般来说，订单查询时，会根据用户ID查对应的订单，或根据美食的名称查对应的订单*/
+    /*鏍规嵁鏌ヨ鏉′欢鏌ヨ锛屼竴鑸潵璇达紝璁㈠崟鏌ヨ鏃讹紝浼氭牴鎹敤鎴稩D鏌ュ搴旂殑璁㈠崟锛屾垨鏍规嵁缇庨鐨勫悕绉版煡瀵瑰簲鐨勮鍗�*/
     public ArrayList<Order> QueryOrderInfo(Customer customer, Honey honey) {
     	Session s = factory.getCurrentSession();
     	String hql = "From Order order where 1=1";

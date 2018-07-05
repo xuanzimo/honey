@@ -25,7 +25,14 @@ public class Customer implements java.io.Serializable {
 	private String name;
 	private String address;
 	private String password;
+	private Integer score;
+	private Integer viplevel;
+	private Set<Commit> commits = new HashSet<Commit>(0);
+	private Set<Board> boards = new HashSet<Board>(0);
+	private Set<Board> boards_1 = new HashSet<Board>(0);
 	private Set<Order> orders = new HashSet<Order>(0);
+	private Set<Commit> commits_1 = new HashSet<Commit>(0);
+	private Set<Order> orders_1 = new HashSet<Order>(0);
 
 	// Constructors
 
@@ -34,19 +41,31 @@ public class Customer implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Customer(String name, String address, String password) {
+	public Customer(String name, String address, String password,
+			Integer score, Integer viplevel) {
 		this.name = name;
 		this.address = address;
 		this.password = password;
+		this.score = score;
+		this.viplevel = viplevel;
 	}
 
 	/** full constructor */
 	public Customer(String name, String address, String password,
-			Set<Order> orders) {
+			Integer score, Integer viplevel, Set<Commit> commits,
+			Set<Board> boards, Set<Board> boards_1, Set<Order> orders,
+			Set<Commit> commits_1, Set<Order> orders_1) {
 		this.name = name;
 		this.address = address;
 		this.password = password;
+		this.score = score;
+		this.viplevel = viplevel;
+		this.commits = commits;
+		this.boards = boards;
+		this.boards_1 = boards_1;
 		this.orders = orders;
+		this.commits_1 = commits_1;
+		this.orders_1 = orders_1;
 	}
 
 	// Property accessors
@@ -89,6 +108,51 @@ public class Customer implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Column(name = "score", nullable = false)
+	public Integer getScore() {
+		return this.score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	@Column(name = "VIPlevel", nullable = false)
+	public Integer getViplevel() {
+		return this.viplevel;
+	}
+
+	public void setViplevel(Integer viplevel) {
+		this.viplevel = viplevel;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
+	public Set<Commit> getCommits() {
+		return this.commits;
+	}
+
+	public void setCommits(Set<Commit> commits) {
+		this.commits = commits;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
+	public Set<Board> getBoards() {
+		return this.boards;
+	}
+
+	public void setBoards(Set<Board> boards) {
+		this.boards = boards;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
+	public Set<Board> getBoards_1() {
+		return this.boards_1;
+	}
+
+	public void setBoards_1(Set<Board> boards_1) {
+		this.boards_1 = boards_1;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
 	public Set<Order> getOrders() {
 		return this.orders;
@@ -96,6 +160,24 @@ public class Customer implements java.io.Serializable {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
+	public Set<Commit> getCommits_1() {
+		return this.commits_1;
+	}
+
+	public void setCommits_1(Set<Commit> commits_1) {
+		this.commits_1 = commits_1;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "customer")
+	public Set<Order> getOrders_1() {
+		return this.orders_1;
+	}
+
+	public void setOrders_1(Set<Order> orders_1) {
+		this.orders_1 = orders_1;
 	}
 
 }

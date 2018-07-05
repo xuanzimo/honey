@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/com/honey/action/BoardAction.java=UTF-8
+encoding//src/com/honey/action/CommitAction.java=UTF-8
+encoding//src/com/honey/action/CustomerAction.java=UTF-8
+encoding//src/com/honey/action/HoneyAction.java=UTF-8
+encoding//src/com/honey/action/OrderAction.java=UTF-8
+encoding//src/com/honey/dao/CustomerDao.java=UTF-8
+encoding//src/com/honey/dao/OrderDao.java=UTF-8
+encoding//src/com/honey/util/LoginInterceptors.java=UTF-8

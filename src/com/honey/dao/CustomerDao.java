@@ -18,26 +18,25 @@ import com.honey.model.Customer;
 public class CustomerDao {
 	@Resource SessionFactory factory;
 	
-	 /*添加Customer信息*/
+	 /*濞ｈ濮濩ustomer娣団剝浼�*/
     public void AddCustomer(Customer customer) throws Exception {
     	Session s = factory.getCurrentSession();
     	s.save(customer);
     }
     
-    /*删除Customer信息*/
+    /*閸掔娀娅嶤ustomer娣団剝浼�*/
     public void DeleteCustomer (Integer customerId) throws Exception {
         Session s = factory.getCurrentSession(); 
         Object customer = s.load(Customer.class, customerId);
         s.delete(customer);
     }
     
-    /*更新Customer信息*/
+    /*閺囧瓨鏌奀ustomer娣団剝浼�*/
     public void UpdateCustomer(Customer customer) throws Exception {
         Session s = factory.getCurrentSession();
         s.update(customer);
     }
-    
-    /*查询所有Customer信息*/
+    /*閺屻儴顕楅幍锟芥箒Customer娣団剝浼�*/
     public ArrayList<Customer> QueryAllCustomer() {
         Session s = factory.getCurrentSession();
         String hql = "From Customer";
@@ -46,14 +45,14 @@ public class CustomerDao {
         return (ArrayList<Customer>) customerList;
     }
 
-    /*根据主键获取对象*/
+    /*閺嶈宓佹稉濠氭暛閼惧嘲褰囩�纭呰杽*/
     public Customer GetCustomerById(Integer customerid) {
         Session s = factory.getCurrentSession();
         Customer customer = (Customer)s.get(Customer.class, customerid);
         return customer;
     }
     
-    /*根据查询条件查询*/
+    /*閺嶈宓侀弻銉嚄閺夆�娆㈤弻銉嚄*/
     public ArrayList<Customer> QueryCustomerInfo(String name) {
     	
     	Session s = factory.getCurrentSession();

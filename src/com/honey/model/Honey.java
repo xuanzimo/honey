@@ -24,7 +24,13 @@ public class Honey implements java.io.Serializable {
 	private Integer honeyid;
 	private String honeyname;
 	private Double unitprice;
+	private String filepath;
+	private String introduce;
+	private Integer score;
+	private Set<Commit> commits = new HashSet<Commit>(0);
 	private Set<Order> orders = new HashSet<Order>(0);
+	private Set<Order> orders_1 = new HashSet<Order>(0);
+	private Set<Commit> commits_1 = new HashSet<Commit>(0);
 
 	// Constructors
 
@@ -32,11 +38,24 @@ public class Honey implements java.io.Serializable {
 	public Honey() {
 	}
 
+	/** minimal constructor */
+	public Honey(Integer score) {
+		this.score = score;
+	}
+
 	/** full constructor */
-	public Honey(String honeyname, Double unitprice, Set<Order> orders) {
+	public Honey(String honeyname, Double unitprice, String filepath,
+			String introduce, Integer score, Set<Commit> commits,
+			Set<Order> orders, Set<Order> orders_1, Set<Commit> commits_1) {
 		this.honeyname = honeyname;
 		this.unitprice = unitprice;
+		this.filepath = filepath;
+		this.introduce = introduce;
+		this.score = score;
+		this.commits = commits;
 		this.orders = orders;
+		this.orders_1 = orders_1;
+		this.commits_1 = commits_1;
 	}
 
 	// Property accessors
@@ -70,6 +89,42 @@ public class Honey implements java.io.Serializable {
 		this.unitprice = unitprice;
 	}
 
+	@Column(name = "filepath", length = 100)
+	public String getFilepath() {
+		return this.filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
+
+	@Column(name = "introduce", length = 20000)
+	public String getIntroduce() {
+		return this.introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	@Column(name = "score", nullable = false)
+	public Integer getScore() {
+		return this.score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "honey")
+	public Set<Commit> getCommits() {
+		return this.commits;
+	}
+
+	public void setCommits(Set<Commit> commits) {
+		this.commits = commits;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "honey")
 	public Set<Order> getOrders() {
 		return this.orders;
@@ -77,6 +132,24 @@ public class Honey implements java.io.Serializable {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "honey")
+	public Set<Order> getOrders_1() {
+		return this.orders_1;
+	}
+
+	public void setOrders_1(Set<Order> orders_1) {
+		this.orders_1 = orders_1;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "honey")
+	public Set<Commit> getCommits_1() {
+		return this.commits_1;
+	}
+
+	public void setCommits_1(Set<Commit> commits_1) {
+		this.commits_1 = commits_1;
 	}
 
 }
